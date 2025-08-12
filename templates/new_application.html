@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% block content %}
+	<h2>New Job Application</h2>
+    <div class="new_application">
+        <form method="POST">
+            <label>Job Title:</label>
+            <input type="text" name="job_title" required>
+
+            <label>Company name:</label>
+            <input type="text" name="company">
+
+            <label>Date Applied:</label>
+            <input type="date" name="date">
+
+            <button type="submit">Create</button>
+        </form>
+    </div>
+{% endblock %}

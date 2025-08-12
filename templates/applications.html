@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+{% block content %}
+	<h2>Application Management</h2>
+    <div class="applications_view">
+        <ul>
+            {% for application in applications_list %}
+            <div class="job_application">
+                <p>Job Title: {{ application.get_job_title() }}</p>
+                {% if application.get_company() != None %}
+                    <p>Company: {{ application.get_company() }}</p>
+                {% endif %}
+                {% if application.get_date() %}
+                    <p>Date Applied: {{ application.get_date() }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{{ url_for('new_application') }}">Add new Job Application to tracker</a>
+{% endblock %}

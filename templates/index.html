@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs Application Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Jobs Application Tracker</h1>
+</header>
+<main>
+    {% block content %}
+        <h2>Welcome to the Jobs Application Tracker</h2>
+        <p>This web app is designed to help you keep track of all your job applications, where the alternative
+        might have been to do so in Excel. You might therefore find this app more intuitive.</p>
+        <p>Please press the link below to proceed to the tracking screen</p>
+        <a href="{{ url_for('applications') }}">Job Application Tracking Manager</a>
+    {% endblock %}
+</main>
+</body>
+</html>
