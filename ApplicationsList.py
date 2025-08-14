@@ -1,6 +1,6 @@
 from Application import Application
 
-class Applications:
+class ApplicationsList:
     def __init__(self):
         self.applicationsList = []
 

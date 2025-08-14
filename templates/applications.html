@@ -5,12 +5,16 @@
         {% for application in applications_list %}
             <div class="job_application">
                 <p>Job Title: {{ application.get_job_title() }}</p>
-                {% if application.get_company() != None %}
+                {% if application.get_company() %}
                     <p>Company: {{ application.get_company() }}</p>
                 {% endif %}
                 {% if application.get_date() %}
                     <p>Date Applied: {{ application.get_date() }}</p>
                 {% endif %}
+                <form action="{{ url_for('delete_application') }}" method="POST">
+                    <input type="hidden" name="application_id" value="{{ application.get_id() }}">
+                    <button type="submit">Delete</button>
+                </form>
             </div>
         {% endfor %}
     </div>
