@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+	<h2>Update Job Application</h2>
+    <div class="update_application">
+        <form method="POST">
+            <input type="hidden" name="application_id" value="{{ application.get_id() }}">
+
+            <label>Job Title:</label>
+            <input type="text" name="job_title" placeholder="e.g. Junior Software Engineer" required value="{{ application.get_job_title() }}">
+
+            <label>Company name:</label>
+            <input type="text" name="company" placeholder="e.g. Google" value="{{ application.get_company() }}">
+
+            <label>Date Applied:</label>
+            <input type="date" name="date" value="{{ application.get_date() }}">
+
+            <label>Job Board:</label>
+            <input type="text" name="job_board" placeholder="e.g. LinkedIn" value="{{ application.get_job_board() }}">
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+{% endblock %}

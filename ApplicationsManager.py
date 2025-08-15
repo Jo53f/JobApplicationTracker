@@ -25,6 +25,13 @@ class ApplicationsManager:
                 return application
         return None
 
+    def update_entry(self, application: Application, job_title, company, date, job_board):
+        application.job_title = job_title
+        application.company = company
+        application.date = date
+        application.job_board = job_board
+        self.db.update_entry(application)
+
     def load_data(self):
         self.applicationsList.return_list().clear()
         for application in self.db.load_data():

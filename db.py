@@ -32,3 +32,10 @@ class Db:
             (id,)
         )
         self.db.commit()
+
+    def update_entry(self, application: Application):
+        id = application.get_id()
+        self.cursor.execute(
+            "UPDATE application SET job_title = %s, company = %s, date = %s, status = %s, job_board = %s WHERE application_id = %s",
+            (application.get_job_title(), application.get_company(), application.get_date(), application.get_status(), application.get_job_board(), id)
+        )

@@ -31,5 +31,14 @@ def delete_application():
     applicationsMan.remove_entry(application)
     return redirect(url_for('applications'))
 
+@app.route('/applications/update', methods=['GET', 'POST'])
+def update_application():
+    application_id = request.args.get('application_id', type=int)
+    application = applicationsMan.return_entry(application_id)
+    if request.method == "POST":
+        applicationsMan.update_entry(application, request.form['job_title'], request.form['company'], request.form['date'], request.form['job_board'])
+        return redirect(url_for('applications'))
+    return render_template("update_application.html", application = application)
+
 if __name__ == '__main__':
     app.run()
