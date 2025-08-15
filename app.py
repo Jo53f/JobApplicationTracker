@@ -36,7 +36,12 @@ def update_application():
     application_id = request.args.get('application_id', type=int)
     application = applicationsMan.return_entry(application_id)
     if request.method == "POST":
-        applicationsMan.update_entry(application, request.form['job_title'], request.form['company'], request.form['date'], request.form['job_board'])
+        applicationsMan.update_entry(
+            application,
+            job_title=request.form['job_title'],
+            company=request.form['company'],
+            date=request.form['date'],
+            job_board=request.form['job_board'])
         return redirect(url_for('applications'))
     return render_template("update_application.html", application = application)
 
