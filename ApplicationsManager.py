@@ -33,5 +33,6 @@ class ApplicationsManager:
                 job_title=application[1],
                 company=application[2],
                 date=application[3],
-                status=application[4]
+                status=application[4],
+                job_board=application[5]
             ))
