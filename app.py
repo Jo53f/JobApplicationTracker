@@ -24,7 +24,7 @@ def new_application():
         return redirect(url_for('applications'))
     return render_template("new_application.html")
 
-@app.delete('/applications/delete')
+@app.post('/applications/delete')
 def delete_application():
     application_id = int(request.form['application_id'])
     application = applicationsMan.return_entry(application_id)
