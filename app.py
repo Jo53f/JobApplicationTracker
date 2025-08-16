@@ -3,6 +3,7 @@ from urllib import request
 from flask import Flask, render_template, request, url_for, redirect
 
 from ApplicationsManager import ApplicationsManager
+from Status import Status
 
 app = Flask(__name__)
 
@@ -20,9 +21,15 @@ def applications():
 @app.route('/applications/new', methods=['GET', 'POST'])
 def new_application():
     if request.method == "POST":
-        applicationsMan.add_entry(request.form['job_title'], request.form['date'], request.form['company'], request.form['job_board'])
+        applicationsMan.add_entry(
+            request.form['job_title'],
+            request.form['date'],
+            request.form['company'],
+            request.form['job_board'],
+            Status(int(request.form['application_status']))
+        )
         return redirect(url_for('applications'))
-    return render_template("new_application.html")
+    return render_template("new_application.html", status_list = Status)
 
 @app.post('/applications/delete')
 def delete_application():
@@ -44,6 +51,10 @@ def update_application():
             job_board=request.form['job_board'])
         return redirect(url_for('applications'))
     return render_template("update_application.html", application = application)
+
+@app.route('/applications/insight', methods=['GET'])
+def insight():
+    return render_template("insight.html")
 
 if __name__ == '__main__':
     app.run()

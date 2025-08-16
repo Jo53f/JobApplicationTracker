@@ -21,7 +21,7 @@ class Db:
     def add_entry(self, application: Application):
         self.cursor.execute(
             "INSERT INTO application (job_title, company, date, status, job_board) VALUES (%s, %s, %s, %s, %s)",
-            (application.get_job_title(), application.get_company(), application.get_date(), application.get_status(), application.get_job_board())
+            (application.get_job_title(), application.get_company(), application.get_date(), application.get_status().value, application.get_job_board())
         )
         self.db.commit()
 

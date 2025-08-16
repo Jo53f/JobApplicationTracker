@@ -3,6 +3,6 @@ CREATE TABLE application (
     job_title VARCHAR(50),
     company VARCHAR(50),
     date DATE,
-    status VARCHAR(10),
+    status TINYINT,
     job_board VARCHAR(50)
 );

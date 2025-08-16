@@ -8,6 +8,11 @@
 <body>
 <header>
     <h1>Jobs Application Tracker</h1>
+    <nav>
+        <a href="{{ url_for('main_menu') }}">Home</a>
+        <a href="{{ url_for('applications') }}">Job Application Tracking Manager</a>
+        <a href="{{ url_for('insight') }}">Insight</a>
+    </nav>
 </header>
 <main>
     {% block content %}

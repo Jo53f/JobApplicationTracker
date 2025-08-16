@@ -3,17 +3,25 @@
 	<h2>New Job Application</h2>
     <div class="new_application">
         <form method="POST">
-            <label>Job Title:</label>
-            <input type="text" name="job_title" placeholder="e.g. Junior Software Engineer" required>
-
-            <label>Company name:</label>
-            <input type="text" name="company" placeholder="e.g. Google">
-
-            <label>Date Applied:</label>
-            <input type="date" name="date">
-
-            <label>Job Board:</label>
-            <input type="text" name="job_board" placeholder="e.g. LinkedIn">
+            <table>
+                <tr>
+                    <th><label for="job_title">Job Title:</label></th>
+                    <th><label>Company name:</label></th>
+                    <th><label>Date Applied:</label></th>
+                    <th><label>Job Board:</label></th>
+                    <th>Application Status</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="job_title" placeholder="e.g. Junior Software Engineer" required></td>
+                    <td><input type="text" name="company" placeholder="e.g. Google"></td>
+                    <td><input type="date" name="date"></td>
+                    <td><input type="text" name="job_board" placeholder="e.g. LinkedIn"></td>
+                    <td><select name="application_status">
+                        {% for status in status_list %}
+                            <option value="{{ status.value }}">{{ status.name }}</option>
+                        {% endfor %}
+                    </select></td>
+            </table>
 
             <button type="submit">Create</button>
         </form>

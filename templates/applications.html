@@ -5,6 +5,9 @@
     <div class="applications_view">
         {% for application in applications_list %}
             <div class="job_application">
+                {% if application.get_status() %}
+                    <p>{{ application.get_status().name }}</p>
+                {% endif %}
                 <p>Job Title: {{ application.get_job_title() }}</p>
                 {% if application.get_company() %}
                     <p>Company: {{ application.get_company() }}</p>

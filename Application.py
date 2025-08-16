@@ -1,7 +1,17 @@
 import datetime
 
+from Status import Status
+
 class Application:
-    def __init__(self, job_title: str, status = "applied", date: datetime = datetime.date.today(), company=None, application_id=None, job_board=None):
+    def __init__(
+            self,
+            job_title: str,
+            status: Status = Status.APPLIED,
+            date: datetime = datetime.date.today(),
+            company=None,
+            application_id=None,
+            job_board=None
+    ):
         self.job_title = job_title
         self.status = status
         self.date = date
@@ -28,18 +38,3 @@ class Application:
 
     def get_job_board(self) -> str:
         return self.job_board
-
-    def set_applied(self):
-        self.status = "applied"
-
-    def set_rejected(self):
-        self.status = "rejected"
-
-    def set_accepted(self):
-        self.status = "accepted"
-
-    def set_test_stage(self):
-        self.status = "test stage"
-
-    def set_interview(self):
-        self.status = "interview"
