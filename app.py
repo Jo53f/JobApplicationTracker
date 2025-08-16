@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from urllib import request
 
 from flask import Flask, render_template, request, url_for, redirect
@@ -13,10 +14,23 @@ applicationsMan = ApplicationsManager()
 def main_menu():  # put application's code here
     return render_template("index.html")
 
-@app.route('/applications')
+@app.route('/applications', methods=['GET', 'POST'])
 def applications():
     applicationsMan.load_data()
-    return render_template("applications.html", applications_list = applicationsMan.return_entry_list())
+    applications_list = applicationsMan.return_entry_list()
+    status_filter = 0
+    if request.method == "POST":
+        status_filter = int(request.form['status_filter'])
+
+        if status_filter != 0:
+            status_filter = Status(status_filter)
+            applications_list = applicationsMan.Status_filter(status_filter)
+    return render_template(
+        "applications.html",
+        applications_list = applications_list,
+        status_list = Status,
+        current_status = status_filter if status_filter else 0
+    )
 
 @app.route('/applications/new', methods=['GET', 'POST'])
 def new_application():

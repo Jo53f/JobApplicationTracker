@@ -73,7 +73,7 @@ class ApplicationsManager:
                 filtered_applications.append(application)
         return filtered_applications
 
-    def Status_filter(self, status: str):
+    def Status_filter(self, status: Status):
         filtered_applications = []
         for application in self.applicationsList.return_list():
             if application.get_status() == status:

@@ -3,6 +3,21 @@
 	<h2>Application Management</h2>
     <a href="{{ url_for('new_application') }}">Add new Job Application to tracker</a>
     <div class="applications_view">
+    <div class="applications_filters">
+        <form action="{{ url_for('applications') }}" method="POST">
+            <select name="status_filter">
+                <option value="0">ALL</option>
+                {% for status in status_list %}
+                    <option value="{{ status.value }}"
+                            {% if current_status == status %}
+                                selected
+                            {% endif %}
+                    >{{ status.name }}</option>
+                {% endfor %}
+            </select>
+        <button type="submit">Filter</button>
+        </form>
+    </div>
         {% for application in applications_list %}
             <div class="job_application">
                 {% if application.get_status() %}
