@@ -77,11 +77,11 @@ def insight():
 def status_insight():
     fig = applicationsMan.pie_chart()
     output = io.BytesIO()
-    fig.savefig(output, format='png')
+    fig.savefig(output, format='svg')
     plt.close(fig)
     output.seek(0)
 
-    return Response(output.getvalue(), mimetype='image/png')
+    return Response(output.getvalue(), mimetype='image/svg+xml')
 
 if __name__ == '__main__':
     app.run()
