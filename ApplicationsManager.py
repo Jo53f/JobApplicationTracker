@@ -1,5 +1,7 @@
 import datetime
 
+from matplotlib import pyplot as plt
+
 from Application import Application
 from ApplicationsList import ApplicationsList
 from Status import Status
@@ -86,3 +88,21 @@ class ApplicationsManager:
             if application.get_company() == company:
                 filtered_applications.append(application)
         return filtered_applications
+
+    def status_insight(self):
+        status_insight = {}
+        for application in self.applicationsList.return_list():
+            status_insight[application.get_status().name] = status_insight.get(application.get_status().name, 0) + 1
+
+        return status_insight
+
+    def pie_chart(self):
+        status_insight = self.status_insight()
+        labels = list(status_insight.keys())
+        values = list(status_insight.values())
+
+        figure, ax = plt.subplots(figsize=(4, 4))
+        ax.set_xlabel('Status of job applications')
+        ax.pie(values, labels=labels, autopct='%1.1f%%')
+        figure.tight_layout()
+        return figure

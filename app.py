@@ -1,7 +1,9 @@
+import io
 from contextlib import nullcontext
 from urllib import request
 
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, Response
+from matplotlib import pyplot as plt
 
 from ApplicationsManager import ApplicationsManager
 from Status import Status
@@ -68,7 +70,18 @@ def update_application():
 
 @app.route('/applications/insight', methods=['GET'])
 def insight():
-    return render_template("insight.html")
+    applicationsMan.load_data()
+    return render_template("insight.html", applications_list = applicationsMan.return_entry_list())
+
+@app.route('/applications/insight/status_pie_chart.png')
+def status_insight():
+    fig = applicationsMan.pie_chart()
+    output = io.BytesIO()
+    fig.savefig(output, format='png')
+    plt.close(fig)
+    output.seek(0)
+
+    return Response(output.getvalue(), mimetype='image/png')
 
 if __name__ == '__main__':
     app.run()

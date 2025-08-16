@@ -3,13 +3,9 @@
 	<h2>Insight</h2>
     <a href="{{ url_for('new_application') }}">Add new Job Application to tracker</a>
     <div class="insight_view">
-        {% for application in applications_list %}
-            <div class="insight_data_point">
-                <p>Job Title: {{ application.get_job_title() }}</p>
-                {% if application.get_company() %}
-                    <p>Company: {{ application.get_company() }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <div class="insight_graph">
+            <h3>Application Status Split</h3>
+            <img src="{{ url_for('status_insight') }}" alt="Pie Chart">
+        </div>
     </div>
 {% endblock %}
