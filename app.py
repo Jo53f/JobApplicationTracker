@@ -66,7 +66,7 @@ def update_application():
             date=request.form['date'],
             job_board=request.form['job_board'])
         return redirect(url_for('applications'))
-    return render_template("update_application.html", application = application)
+    return render_template("update_application.html", application = application, status_list = Status)
 
 @app.route('/applications/insight', methods=['GET'])
 def insight():

@@ -9,12 +9,22 @@
                     <th>Company name:</th>
                     <th>Date Applied:</th>
                     <th>Job Board:</th>
+                    <th>Application Status:</th>
                 </tr>
                 <tr>
                     <td><input type="text" name="job_title" placeholder="e.g. Junior Software Engineer" required value="{{ application.get_job_title() }}"></td>
                     <td><input type="text" name="company" placeholder="e.g. Google" value="{{ application.get_company() }}"></td>
                     <td><input type="date" name="date" value="{{ application.get_date() }}"></td>
                     <td><input type="text" name="job_board" placeholder="e.g. LinkedIn" value="{{ application.get_job_board() }}"></td>
+                    <td><select name="application_status">
+                        {% for status in status_list %}
+                            <option value="{{ status.value }}"
+                                    {% if application.get_status() == status %}
+                                        selected
+                                    {% endif %}
+                            >{{ status.name }}</option>
+                        {% endfor %}
+                    </select></td>
                 </tr>
             </table>
 
