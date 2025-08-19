@@ -5,7 +5,7 @@ from urllib import request
 from flask import Flask, render_template, request, url_for, redirect, Response
 from matplotlib import pyplot as plt
 
-from ApplicationsManager import ApplicationsManager
+from ApplicationsManager import ApplicationsManager, data_table
 from Status import Status
 
 app = Flask(__name__)
