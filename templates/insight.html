@@ -1,11 +1,25 @@
 {% extends "index.html" %}
 {% block content %}
 	<h2>Insight</h2>
-    <a href="{{ url_for('new_application') }}">Add new Job Application to tracker</a>
     <div class="insight_view">
-        <div class="insight_graph">
+        <div class="insight_card">
             <h3>Application Status Split</h3>
-            <img src="{{ url_for('status_insight') }}" alt="Pie Chart">
+            <div class="insight_graph">
+                <img src="{{ url_for('status_insight') }}" alt="Pie Chart">
+                <div>
+                    {{ status_table | safe }}
+                </div>
+
+            </div>
+        </div>
+        <div class="insight_card">
+            <h3>Job Board Split</h3>
+            <div class="insight_graph">
+                <img src="{{ url_for('job_board_insight') }}" alt="Pie Chart">
+                <div>
+                    {{ job_board_table | safe }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

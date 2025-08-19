@@ -64,18 +64,34 @@ def update_application():
             job_title=request.form['job_title'],
             company=request.form['company'],
             date=request.form['date'],
-            job_board=request.form['job_board'])
+            job_board=request.form['job_board'],
+            status=Status(int(request.form['application_status'])))
         return redirect(url_for('applications'))
     return render_template("update_application.html", application = application, status_list = Status)
 
 @app.route('/applications/insight', methods=['GET'])
 def insight():
     applicationsMan.load_data()
-    return render_template("insight.html", applications_list = applicationsMan.return_entry_list())
+    return render_template(
+        "insight.html",
+        applications_list = applicationsMan.return_entry_list(),
+        status_table = data_table(applicationsMan.status_insight(), ['No. Applications']),
+        job_board_table = data_table(applicationsMan.job_board_insight(), ['Job Boards'])
+    )
 
 @app.route('/applications/insight/status_pie_chart.png')
 def status_insight():
-    fig = applicationsMan.pie_chart()
+    fig = applicationsMan.status_pie_chart()
+    output = io.BytesIO()
+    fig.savefig(output, format='svg')
+    plt.close(fig)
+    output.seek(0)
+
+    return Response(output.getvalue(), mimetype='image/svg+xml')
+
+@app.route('/applications/insight/job_board_pie_chart.png')
+def job_board_insight():
+    fig = applicationsMan.job_board_pie_chart()
     output = io.BytesIO()
     fig.savefig(output, format='svg')
     plt.close(fig)

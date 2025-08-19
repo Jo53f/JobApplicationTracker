@@ -6,6 +6,13 @@ from Application import Application
 from ApplicationsList import ApplicationsList
 from Status import Status
 from db import Db
+import pandas as pd
+
+
+def data_table(dictionary, columns):
+    df = pd.DataFrame(dictionary.values() ,index=dictionary.keys(), columns=columns)
+    return df.to_html()
+
 
 class ApplicationsManager:
     def __init__(self):
@@ -96,7 +103,7 @@ class ApplicationsManager:
 
         return status_insight
 
-    def pie_chart(self):
+    def status_pie_chart(self):
         status_insight = self.status_insight()
         labels = list(status_insight.keys())
         values = list(status_insight.values())
@@ -106,3 +113,24 @@ class ApplicationsManager:
         ax.pie(values, labels=labels, autopct='%1.1f%%')
         figure.tight_layout()
         return figure
+
+    def job_board_insight(self):
+        job_board_insight = {}
+        for application in self.applicationsList.return_list():
+            job_board_insight[application.get_job_board()] = job_board_insight.get(application.get_job_board(), 0) + 1
+
+        if '' in job_board_insight:
+            job_board_insight['Unknown'] = job_board_insight.pop('')
+
+        return job_board_insight
+
+    def job_board_pie_chart(self):
+        job_board_insight = self.job_board_insight()
+        labels = (job_board_insight.keys())
+        values = (job_board_insight.values())
+        figure, ax = plt.subplots(figsize=(4, 4))
+        ax.set_xlabel('Job boards in applications')
+        ax.pie(values, labels=labels, autopct='%1.1f%%')
+        figure.tight_layout()
+        return figure
+

@@ -82,7 +82,7 @@ a:hover {
     margin: 20px 0;
 }
 
-.insight_graph {
+.insight_card {
     padding: 15px;
     margin: 5px;
     border-radius: 15px;
@@ -94,9 +94,33 @@ a:hover {
     transition: all 0.1s ease-in-out;
 }
 
-.insight_graph img {
+.insight_card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px #4a78dd;
+}
+
+.insight_card img {
     max-height: 400px;
     height: auto;
     width: auto;
     object-fit: contain;
+}
+
+.insight_graph {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.dataframe{
+    border-collapse: collapse;
+    margin: auto auto;
+}
+
+.dataframe th{
+    padding: 10px;
+}
+
+.dataframe td{
+    padding: 10px;
 }
