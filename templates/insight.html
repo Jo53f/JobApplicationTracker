@@ -21,5 +21,37 @@
                 </div>
             </div>
         </div>
+        <div class="insight_card">
+            <h3>Job Board Status Split</h3>
+            <select name="job_board_status">
+                        {% for status in status_list %}
+                            <option value="{{ status.value }}">{{ status.name }}</option>
+                        {% endfor %}
+            </select>
+            <div class="insight_graph">
+
+                <img id="pieChart" src="{{ url_for('job_board_status_split_pie_chart', status=1) }}" alt="Pie Chart">
+                <div id="job_board_status_split_table"></div>
+
+                <script>
+                    const status = document.getElementsByName("job_board_status")[0];
+                    const pieChart = document.getElementById("pieChart");
+
+                    status.onchange = function() {
+                        const selected = status.value;
+                        pieChart.src = `/applications/insight/${selected}`;
+                        loadTable();
+                    }
+
+                    async function loadTable() {
+                        const response = await fetch(`/applications/insight/table/${status.value}`);
+                        const data = await response.text();
+                        const table = document.getElementById("job_board_status_split_table");
+                        table.innerHTML = data;
+                    }
+                    loadTable();
+                </script>
+            </div>
+        </div>
     </div>
 {% endblock %}

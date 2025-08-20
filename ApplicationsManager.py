@@ -13,6 +13,12 @@ def data_table(dictionary, columns):
     df = pd.DataFrame(dictionary.values() ,index=dictionary.keys(), columns=columns)
     return df.to_html()
 
+def pie_chart(data, labels, title: str):
+    figure, ax = plt.subplots(figsize=(4, 4))
+    ax.set_xlabel(title)
+    ax.pie(data, labels=labels, autopct='%1.1f%%')
+    figure.tight_layout()
+    return figure
 
 class ApplicationsManager:
     def __init__(self):
@@ -134,3 +140,12 @@ class ApplicationsManager:
         figure.tight_layout()
         return figure
 
+    def job_boards_status(self, status: Status):
+        job_boards = {}
+        for application in self.applicationsList.return_list():
+            if application.get_status() == status:
+                job_boards[application.get_job_board()] = job_boards.get(application.get_job_board(), 0) + 1
+
+        if '' in job_boards:
+            job_boards['Unknown'] = job_boards.pop('')
+        return job_boards

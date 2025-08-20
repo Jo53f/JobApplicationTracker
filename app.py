@@ -2,10 +2,10 @@ import io
 from contextlib import nullcontext
 from urllib import request
 
-from flask import Flask, render_template, request, url_for, redirect, Response
+from flask import Flask, render_template, request, url_for, redirect, Response, render_template_string
 from matplotlib import pyplot as plt
 
-from ApplicationsManager import ApplicationsManager, data_table
+from ApplicationsManager import ApplicationsManager, data_table, pie_chart
 from Status import Status
 
 app = Flask(__name__)
@@ -76,10 +76,11 @@ def insight():
         "insight.html",
         applications_list = applicationsMan.return_entry_list(),
         status_table = data_table(applicationsMan.status_insight(), ['No. Applications']),
-        job_board_table = data_table(applicationsMan.job_board_insight(), ['Job Boards'])
+        job_board_table = data_table(applicationsMan.job_board_insight(), ['Job Boards']),
+        status_list = Status,
     )
 
-@app.route('/applications/insight/status_pie_chart.png')
+@app.route('/applications/insight/status_pie_chart.svg')
 def status_insight():
     fig = applicationsMan.status_pie_chart()
     output = io.BytesIO()
@@ -89,7 +90,7 @@ def status_insight():
 
     return Response(output.getvalue(), mimetype='image/svg+xml')
 
-@app.route('/applications/insight/job_board_pie_chart.png')
+@app.route('/applications/insight/job_board_pie_chart.svg')
 def job_board_insight():
     fig = applicationsMan.job_board_pie_chart()
     output = io.BytesIO()
@@ -98,6 +99,24 @@ def job_board_insight():
     output.seek(0)
 
     return Response(output.getvalue(), mimetype='image/svg+xml')
+
+@app.route('/applications/insight/<int:status>')
+def job_board_status_split_pie_chart(status: int = Status.APPLIED.value):
+    status = Status(status)
+    accepted = applicationsMan.job_boards_status(status)
+    fig = pie_chart(accepted.values(), accepted.keys(), f'{status.name.capitalize()} applications')
+    output = io.BytesIO()
+    fig.savefig(output, format='svg')
+    plt.close(fig)
+    output.seek(0)
+    return Response(output.getvalue(), mimetype='image/svg+xml')
+
+@app.route('/applications/insight/table/<int:status>')
+def job_board_status_split_table(status: int = Status.APPLIED.value):
+    status = Status(status)
+    jobs = applicationsMan.job_boards_status(status)
+    table = data_table(jobs, [f"{status.name.capitalize()} applications"])
+    return render_template_string(table)
 
 if __name__ == '__main__':
     app.run()
