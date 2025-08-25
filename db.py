@@ -6,7 +6,7 @@ from Application import Application
 class Db:
     def __init__(self):
         self.db = mysql.connector.connect(
-            host="localhost",
+            host="192.168.1.109",
             user="dev",
             password="dev_pass",
             database="jobs_db",
@@ -15,7 +15,7 @@ class Db:
         self.cursor = self.db.cursor()
 
     def load_data(self):
-        self.cursor.execute("SELECT * FROM application")
+        self.cursor.execute("SELECT * FROM application ORDER BY date")
         return self.cursor.fetchall()
 
     def add_entry(self, application: Application):
