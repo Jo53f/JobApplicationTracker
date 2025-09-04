@@ -10,6 +10,7 @@ from Status import Status
 
 app = Flask(__name__)
 
+"""Initialize the ApplicationsManager"""
 applicationsMan = ApplicationsManager()
 
 @app.route('/')
