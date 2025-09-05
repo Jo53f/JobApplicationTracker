@@ -7,16 +7,12 @@ class Db:
     """
     A class to handle database operations.
 
-    Methods
-    -------
-    load_data(): list[tuple]
-        Return all data from database table, application.
-    add_entry(self, application: Application)
-        Add an application to database table.
-    remove_entry(self, application: Application)
-        Remove an application from database table.
-    update_entry(self, application: Application)
-        Update an application in database table.
+    Attributes
+    ----------
+    db: mysql.connector.connection
+        database connection
+    cursor: mysql.connector.cursor
+        database cursor
     """
     def __init__(self):
         """

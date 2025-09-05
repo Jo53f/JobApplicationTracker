@@ -1,5 +1,4 @@
 import io
-from contextlib import nullcontext
 from urllib import request
 
 from flask import Flask, render_template, request, url_for, redirect, Response, render_template_string
@@ -10,11 +9,18 @@ from Status import Status
 
 app = Flask(__name__)
 
-"""Initialize the ApplicationsManager"""
 applicationsMan = ApplicationsManager()
+"""Initialise the ApplicationsManager"""
 
 @app.route('/')
-def main_menu():  # put application's code here
+def main_menu():
+    """
+    The main menu page.
+
+    Returns
+    -------
+    render_template("index.html")
+    """
     return render_template("index.html")
 
 @app.route('/applications', methods=['GET', 'POST'])
